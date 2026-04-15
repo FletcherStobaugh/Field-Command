@@ -1,27 +1,104 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfcmain00001"]
+[gd_scene load_steps=10 format=3 uid="uid://bfcmain00001"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
-[ext_resource type="Script" path="res://scripts/grid_bg.gd" id="2_grid"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_hud"]
-font_size = 14
-font_color = Color(1, 0.42, 0.102, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_top_color = Color(0.2, 0.45, 0.75, 1)
+sky_horizon_color = Color(0.82, 0.7, 0.55, 1)
+ground_horizon_color = Color(0.45, 0.4, 0.3, 1)
+ground_bottom_color = Color(0.15, 0.14, 0.11, 1)
+sun_angle_max = 10.0
 
-[node name="Main" type="Node2D"]
-script = ExtResource("1_main")
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
 
-[node name="Background" type="ColorRect" parent="."]
-offset_right = 3840.0
-offset_bottom = 2160.0
-color = Color(0.063, 0.075, 0.055, 1)
-mouse_filter = 2
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+ambient_light_source = 2
+ambient_light_color = Color(0.6, 0.65, 0.7, 1)
+ambient_light_energy = 0.35
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.6
+glow_bloom = 0.15
+fog_enabled = true
+fog_light_color = Color(0.78, 0.72, 0.6, 1)
+fog_density = 0.006
 
-[node name="Grid" type="Node2D" parent="."]
-script = ExtResource("2_grid")
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(200, 1, 200)
 
-[node name="Units" type="Node2D" parent="."]
+[sub_resource type="BoxMesh" id="BoxMesh_ground"]
+size = Vector3(200, 1, 200)
 
-[node name="Effects" type="Node2D" parent="."]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ground"]
+albedo_color = Color(0.32, 0.38, 0.22, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="BoxMesh_obstacle"]
+size = Vector3(3, 3, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_obstacle"]
+albedo_color = Color(0.55, 0.48, 0.35, 1)
+roughness = 0.85
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 12, 0)
+light_color = Color(1, 0.94, 0.86, 1)
+light_energy = 1.4
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="GroundShape" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_ground")
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_ground")
+surface_material_override/0 = SubResource("StandardMaterial3D_ground")
+
+[node name="Obstacles" type="Node3D" parent="."]
+
+[node name="Box1" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, -8)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Box1"]
+shape = SubResource("BoxShape3D_ground")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Box1"]
+mesh = SubResource("BoxMesh_obstacle")
+surface_material_override/0 = SubResource("StandardMaterial3D_obstacle")
+
+[node name="Box2" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.5, -12)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Box2"]
+shape = SubResource("BoxShape3D_ground")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Box2"]
+mesh = SubResource("BoxMesh_obstacle")
+surface_material_override/0 = SubResource("StandardMaterial3D_obstacle")
+
+[node name="Box3" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(2, 0, 0, 0, 0.5, 0, 0, 0, 2, 0, 0.25, -20)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Box3"]
+shape = SubResource("BoxShape3D_ground")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Box3"]
+mesh = SubResource("BoxMesh_obstacle")
+surface_material_override/0 = SubResource("StandardMaterial3D_obstacle")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -30,8 +107,8 @@ offset_left = 20.0
 offset_top = 14.0
 offset_right = 900.0
 offset_bottom = 44.0
-text = "FIELD COMMAND // SECTOR 7 // NO UNITS SELECTED"
-label_settings = SubResource("LabelSettings_hud")
+text = "FIELD COMMAND // PROTOTYPE 0.2 // THIRD-PERSON TEST"
+modulate = Color(1, 0.42, 0.102, 1)
 
 [node name="Hint" type="Label" parent="UI"]
 anchor_top = 1.0
@@ -40,5 +117,5 @@ offset_left = 20.0
 offset_top = -44.0
 offset_right = 1100.0
 offset_bottom = -14.0
-text = "LEFT CLICK: select     SHIFT+CLICK: add to selection     RIGHT CLICK: move order     ESC: deselect"
+text = "WASD move  //  Shift run  //  Space jump  //  Mouse look  //  Esc release cursor"
 modulate = Color(0.722, 0.706, 0.659, 1)
