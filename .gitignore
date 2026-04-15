@@ -5,3 +5,15 @@ node_modules/
 .env
 .env.local
 *.log
+
+# Godot 4 ignores
+game/.godot/
+game/.import/
+game/export.cfg
+game/export_presets.cfg
+game/builds/
+game/*.translation
+
+# Godot-specific temporary files
+*.tmp
+*.import
