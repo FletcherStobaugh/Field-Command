@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 # Field Command — entry point
 # This is the first script that runs when you hit Play in Godot.
