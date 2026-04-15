@@ -1,0 +1,716 @@
+/* ============================================================
+   FIELD COMMAND — LANDING + 30S MOCK TRAILER
+   Pure CSS animations. No build step.
+   ============================================================ */
+
+:root {
+  --bg: #0a0a0a;
+  --bg-darker: #050505;
+  --bone: #f0ede5;
+  --bone-dim: #b8b4a8;
+  --orange: #ff6b1a;
+  --orange-dim: #b84e10;
+  --olive: #7a8450;
+  --red: #c83030;
+  --blue: #4a9eff;
+  --line: #2a2a20;
+  --font-stencil: "Black Ops One", "Bebas Neue", Impact, sans-serif;
+  --font-display: "Bebas Neue", Impact, sans-serif;
+  --font-mono: "Special Elite", "JetBrains Mono", ui-monospace, monospace;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--bone);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   FILM EFFECTS — grain + scanlines (subtle, fixed overlay)
+   ============================================================ */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 101;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgba(0,0,0,0.15) 3px,
+    transparent 4px
+  );
+  opacity: 0.4;
+}
+
+/* ============================================================
+   HUD FRAME
+   ============================================================ */
+.hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+.hud > div {
+  position: absolute;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hud-tl { top: 0; left: 0; }
+.hud-tr { top: 0; right: 0; color: var(--orange); font-weight: 700; }
+.hud-bl { bottom: 0; left: 0; }
+.hud-br { bottom: 0; right: 0; }
+
+.rec-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+  border-radius: 50%;
+  animation: blink 1.2s infinite;
+}
+.rec-label { color: var(--red); font-weight: 700; }
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.2; }
+}
+
+/* ============================================================
+   TRAILER STAGE
+   ============================================================ */
+.trailer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  background: var(--bg-darker);
+  background-image:
+    radial-gradient(ellipse at center, rgba(255, 107, 26, 0.04) 0%, transparent 60%),
+    linear-gradient(180deg, #080808 0%, #050505 100%);
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  animation-duration: 30s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  padding: 40px;
+}
+
+.center { text-align: center; max-width: 1000px; }
+
+/* ============================================================
+   SCENE 1 (0–3s): typewriter cold open
+   keyframes range 0% to 10% on a 30s animation
+   ============================================================ */
+.scene-1 { animation-name: scene-1; }
+@keyframes scene-1 {
+  0%   { opacity: 0; }
+  3%   { opacity: 1; }
+  9%   { opacity: 1; }
+  10%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+.typewriter {
+  font-family: var(--font-mono);
+  color: var(--bone);
+  font-size: clamp(20px, 3vw, 36px);
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid var(--orange);
+  width: 0;
+  animation: typing 2.2s steps(22, end) 0.2s forwards, caret 0.6s step-end infinite;
+}
+@keyframes typing {
+  from { width: 0; }
+  to   { width: 15ch; }
+}
+@keyframes caret {
+  50% { border-color: transparent; }
+}
+
+/* ============================================================
+   SCENE 2 (3–4.5s): YOUR COMMAND title card
+   ============================================================ */
+.scene-2 { animation-name: scene-2; }
+@keyframes scene-2 {
+  0%, 10%  { opacity: 0; transform: scale(1.08); }
+  11%      { opacity: 1; transform: scale(1); }
+  14%      { opacity: 1; transform: scale(1); }
+  15%      { opacity: 0; transform: scale(0.95); }
+  100%     { opacity: 0; }
+}
+.huge {
+  font-family: var(--font-stencil);
+  font-size: clamp(48px, 10vw, 140px);
+  letter-spacing: 0.08em;
+  color: var(--bone);
+  text-transform: uppercase;
+  line-height: 0.9;
+}
+.underline-bar {
+  width: 0;
+  height: 4px;
+  background: var(--orange);
+  margin: 24px auto 0;
+  animation: expand-bar 0.8s 3.3s forwards;
+}
+@keyframes expand-bar {
+  to { width: 60%; }
+}
+
+/* ============================================================
+   SCENE 3: FACTIONS (rapid sequential cuts, 4.5s–12s)
+   Each faction: 1.875s = ~6.25% of total
+   ============================================================ */
+.faction {
+  animation-name: none;
+}
+.faction-1 { animation-name: faction-1; }
+.faction-2 { animation-name: faction-2; }
+.faction-3 { animation-name: faction-3; }
+.faction-4 { animation-name: faction-4; }
+
+@keyframes faction-1 {
+  0%, 15%   { opacity: 0; transform: translateX(40px); }
+  16%       { opacity: 1; transform: translateX(0); }
+  20%       { opacity: 1; transform: translateX(0); }
+  21%       { opacity: 0; transform: translateX(-40px); }
+  100%      { opacity: 0; }
+}
+@keyframes faction-2 {
+  0%, 21%   { opacity: 0; transform: translateX(40px); }
+  22%       { opacity: 1; transform: translateX(0); }
+  26%       { opacity: 1; transform: translateX(0); }
+  27%       { opacity: 0; transform: translateX(-40px); }
+  100%      { opacity: 0; }
+}
+@keyframes faction-3 {
+  0%, 27%   { opacity: 0; transform: translateX(40px); }
+  28%       { opacity: 1; transform: translateX(0); }
+  32%       { opacity: 1; transform: translateX(0); }
+  33%       { opacity: 0; transform: translateX(-40px); }
+  100%      { opacity: 0; }
+}
+@keyframes faction-4 {
+  0%, 33%   { opacity: 0; transform: translateX(40px); }
+  34%       { opacity: 1; transform: translateX(0); }
+  38%       { opacity: 1; transform: translateX(0); }
+  40%       { opacity: 0; transform: translateX(-40px); }
+  100%      { opacity: 0; }
+}
+
+.faction-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 900px;
+}
+.sigil {
+  width: 180px;
+  height: 180px;
+}
+.sigil svg { width: 100%; height: 100%; }
+.sigil-coalition { color: var(--bone); }
+.sigil-bloc { color: var(--red); }
+.sigil-cartel { color: var(--olive); }
+.sigil-contractors { color: var(--orange); }
+
+.faction-text { text-align: left; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.faction-name {
+  font-family: var(--font-stencil);
+  font-size: clamp(48px, 8vw, 96px);
+  letter-spacing: 0.06em;
+  line-height: 0.95;
+  color: var(--bone);
+  text-transform: uppercase;
+}
+.faction-tag {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.5vw, 32px);
+  color: var(--bone-dim);
+  margin-top: 12px;
+  letter-spacing: 0.1em;
+}
+
+/* ============================================================
+   SCENE 4: HERO DOSSIERS (12–18s)
+   Each hero: 1.5s = 5%
+   ============================================================ */
+.hero-1 { animation-name: hero-1; }
+.hero-2 { animation-name: hero-2; }
+.hero-3 { animation-name: hero-3; }
+.hero-4 { animation-name: hero-4; }
+
+@keyframes hero-1 {
+  0%, 40%   { opacity: 0; transform: translateY(20px); }
+  41%       { opacity: 1; transform: translateY(0); }
+  44%       { opacity: 1; transform: translateY(0); }
+  45%       { opacity: 0; transform: translateY(-20px); }
+  100%      { opacity: 0; }
+}
+@keyframes hero-2 {
+  0%, 45%   { opacity: 0; transform: translateY(20px); }
+  46%       { opacity: 1; transform: translateY(0); }
+  49%       { opacity: 1; transform: translateY(0); }
+  50%       { opacity: 0; transform: translateY(-20px); }
+  100%      { opacity: 0; }
+}
+@keyframes hero-3 {
+  0%, 50%   { opacity: 0; transform: translateY(20px); }
+  51%       { opacity: 1; transform: translateY(0); }
+  54%       { opacity: 1; transform: translateY(0); }
+  55%       { opacity: 0; transform: translateY(-20px); }
+  100%      { opacity: 0; }
+}
+@keyframes hero-4 {
+  0%, 55%   { opacity: 0; transform: translateY(20px); }
+  56%       { opacity: 1; transform: translateY(0); }
+  59%       { opacity: 1; transform: translateY(0); }
+  60%       { opacity: 0; transform: translateY(-20px); }
+  100%      { opacity: 0; }
+}
+
+.dossier {
+  background: var(--bg-darker);
+  border: 1px solid var(--line);
+  padding: 32px 40px;
+  max-width: 700px;
+  position: relative;
+}
+.dossier::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: -1px; right: -1px;
+  height: 2px;
+  background: var(--orange);
+}
+.dossier-header {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--orange);
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--line);
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+.dossier-body {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 32px;
+  align-items: center;
+}
+.portrait {
+  width: 140px;
+  height: 140px;
+  border: 1px solid var(--line);
+  padding: 10px;
+  color: var(--bone);
+}
+.portrait svg { width: 100%; height: 100%; }
+.portrait-viper { color: var(--olive); }
+.portrait-wrench { color: var(--orange); }
+.portrait-ghost { color: var(--blue); }
+.portrait-preacher { color: var(--red); }
+
+.dossier-text { text-align: left; }
+.codename {
+  font-family: var(--font-stencil);
+  font-size: clamp(36px, 6vw, 64px);
+  color: var(--bone);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.role {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.25em;
+  color: var(--orange);
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+.abilities {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--bone-dim);
+  margin-top: 20px;
+  line-height: 2;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   SCENE 5: TEXT SLAMS (18–22s)
+   Each slam: 1s = ~3.3%
+   ============================================================ */
+.slam-1 { animation-name: slam-1; }
+.slam-2 { animation-name: slam-2; }
+.slam-3 { animation-name: slam-3; }
+.slam-4 { animation-name: slam-4; }
+
+@keyframes slam-1 {
+  0%, 60%   { opacity: 0; transform: scale(1.3); }
+  60.5%     { opacity: 1; transform: scale(1); }
+  62.5%     { opacity: 1; transform: scale(1); }
+  63%       { opacity: 0; transform: scale(0.9); }
+  100%      { opacity: 0; }
+}
+@keyframes slam-2 {
+  0%, 63%   { opacity: 0; transform: scale(1.3); }
+  63.5%     { opacity: 1; transform: scale(1); }
+  65.5%     { opacity: 1; transform: scale(1); }
+  66%       { opacity: 0; transform: scale(0.9); }
+  100%      { opacity: 0; }
+}
+@keyframes slam-3 {
+  0%, 66%   { opacity: 0; transform: scale(1.3); }
+  66.5%     { opacity: 1; transform: scale(1); }
+  68.5%     { opacity: 1; transform: scale(1); }
+  69%       { opacity: 0; transform: scale(0.9); }
+  100%      { opacity: 0; }
+}
+@keyframes slam-4 {
+  0%, 69%   { opacity: 0; transform: scale(1.3); }
+  69.5%     { opacity: 1; transform: scale(1); }
+  72.5%     { opacity: 1; transform: scale(1); }
+  73%       { opacity: 0; transform: scale(0.9); }
+  100%      { opacity: 0; }
+}
+.slam-text {
+  font-family: var(--font-stencil);
+  font-size: clamp(48px, 12vw, 160px);
+  color: var(--bone);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+}
+.slam-red { color: var(--red); }
+
+/* ============================================================
+   SCENE 6: TACTICAL MAP (22–26s)
+   ============================================================ */
+.map-scene { animation-name: map-scene; }
+@keyframes map-scene {
+  0%, 73%   { opacity: 0; }
+  74%       { opacity: 1; }
+  86%       { opacity: 1; }
+  87%       { opacity: 0; }
+  100%      { opacity: 0; }
+}
+.map {
+  width: min(900px, 80vw);
+  height: auto;
+  border: 1px solid var(--line);
+  background: var(--bg-darker);
+  position: relative;
+  padding: 8px;
+}
+.map svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.map-overlay {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+.map-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--orange);
+  text-transform: uppercase;
+}
+
+/* Pulse on objective */
+.pulse-ring {
+  transform-origin: center;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.2); }
+}
+
+/* Moving blue units */
+.unit-blue {
+  animation: unit-advance 4s 22s ease-in-out forwards;
+}
+@keyframes unit-advance {
+  to { transform: translate(160px, -40px); }
+}
+
+/* Explosion */
+.explosion {
+  opacity: 0;
+  transform: scale(0.2);
+  transform-origin: center;
+  animation: explode 0.8s 25s forwards;
+}
+@keyframes explode {
+  0%   { opacity: 0; transform: scale(0.2); }
+  20%  { opacity: 1; transform: scale(1.4); }
+  100% { opacity: 0; transform: scale(2.2); }
+}
+
+/* ============================================================
+   SCENE 7: LOGO + CTA (26–30s, holds to end)
+   ============================================================ */
+.logo-scene { animation-name: logo-scene; }
+@keyframes logo-scene {
+  0%, 87%  { opacity: 0; transform: translateY(10px); }
+  89%      { opacity: 1; transform: translateY(0); }
+  100%     { opacity: 1; transform: translateY(0); }
+}
+
+.brand-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.brand-bar {
+  width: 60%;
+  max-width: 420px;
+  height: 2px;
+  background: var(--orange);
+}
+.logo {
+  font-family: var(--font-stencil);
+  font-size: clamp(48px, 11vw, 140px);
+  letter-spacing: 0.1em;
+  color: var(--bone);
+  text-transform: uppercase;
+  line-height: 0.9;
+  white-space: nowrap;
+}
+.tagline {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.2vw, 26px);
+  color: var(--bone-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+.cta-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.small-note {
+  margin-top: 28px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: var(--bone-dim);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-block;
+  font-family: var(--font-stencil);
+  font-size: 16px;
+  letter-spacing: 0.15em;
+  padding: 14px 28px;
+  border: 2px solid var(--orange);
+  background: var(--orange);
+  color: var(--bg);
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.08s;
+}
+.btn:hover {
+  background: transparent;
+  color: var(--orange);
+}
+.btn:active { transform: translateY(1px); }
+.btn-ghost {
+  background: transparent;
+  color: var(--bone);
+  border-color: var(--line);
+}
+.btn-ghost:hover {
+  border-color: var(--bone);
+  color: var(--bone);
+  background: transparent;
+}
+
+/* ============================================================
+   BELOW-FOLD LANDING
+   ============================================================ */
+.fold {
+  background: var(--bg);
+  padding: 120px 24px 80px;
+  border-top: 1px solid var(--line);
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.page-header { text-align: center; margin-bottom: 56px; }
+.page-title {
+  font-family: var(--font-stencil);
+  font-size: clamp(32px, 5vw, 56px);
+  color: var(--bone);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin: 16px 0 20px;
+}
+.lede {
+  font-size: 18px;
+  color: var(--bone-dim);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.wishlist-form {
+  display: flex;
+  gap: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+.wishlist-form input {
+  flex: 1 1 280px;
+  padding: 14px 18px;
+  background: var(--bg-darker);
+  border: 1px solid var(--line);
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+}
+.wishlist-form input:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.form-note {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--bone-dim);
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+
+.section-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 80px 0;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+@media (max-width: 720px) {
+  .grid-2 { grid-template-columns: 1fr; gap: 32px; }
+}
+
+.info-block h3 {
+  font-family: var(--font-stencil);
+  font-size: 24px;
+  color: var(--orange);
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.info-block ul { list-style: none; padding: 0; }
+.info-block li {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--line);
+  color: var(--bone-dim);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.info-block li strong { color: var(--bone); font-weight: 700; }
+.info-block p {
+  color: var(--bone-dim);
+  font-size: 16px;
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+
+.site-footer {
+  text-align: center;
+  margin-top: 120px;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--bone-dim);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   RESPONSIVE TWEAKS
+   ============================================================ */
+@media (max-width: 640px) {
+  .faction-grid { grid-template-columns: 1fr; gap: 24px; text-align: center; }
+  .faction-text { text-align: center; }
+  .sigil { width: 120px; height: 120px; margin: 0 auto; }
+  .dossier-body { grid-template-columns: 1fr; gap: 16px; text-align: center; }
+  .portrait { margin: 0 auto; width: 100px; height: 100px; }
+  .dossier-text { text-align: center; }
+  .hud { font-size: 9px; }
+  .hud > div { padding: 10px 12px; }
+}

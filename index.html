@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FIELD COMMAND // Small-unit modern combat RTS</title>
+  <meta name="description" content="Warcraft 3 for the modern battlefield. Base-build, named operators, 15-minute matches. Wishlist now." />
+  <meta property="og:title" content="FIELD COMMAND" />
+  <meta property="og:description" content="Warcraft 3 for the modern battlefield. Multiplayer base-build RTS with named operators and asymmetric factions." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0a0a0a" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Inter:wght@400;500;600;700&family=Black+Ops+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Film grain overlay -->
+  <div class="grain"></div>
+  <div class="scanlines"></div>
+
+  <!-- HUD frame: classification markings + timestamp + REC indicator -->
+  <div class="hud">
+    <div class="hud-tl">
+      <span class="rec-dot"></span>
+      <span class="rec-label">REC</span>
+      <span class="timestamp" id="timestamp">00:00</span>
+    </div>
+    <div class="hud-tr classification">TOP SECRET // FIELD COMMAND</div>
+    <div class="hud-bl">LAT 34.5553 LON 69.2075</div>
+    <div class="hud-br">SIGNAL / ENCRYPTED</div>
+  </div>
+
+  <!-- Trailer stage: all scenes absolutely positioned, animated via CSS -->
+  <main class="trailer" id="trailer">
+
+    <!-- Scene 1: cold open -->
+    <section class="scene scene-1">
+      <div class="center">
+        <p class="typewriter">2027. A SMALL WAR.</p>
+      </div>
+    </section>
+
+    <!-- Scene 2: title card -->
+    <section class="scene scene-2">
+      <div class="center">
+        <h1 class="huge">YOUR COMMAND.</h1>
+        <div class="underline-bar"></div>
+      </div>
+    </section>
+
+    <!-- Scene 3A-D: factions (sequential) -->
+    <section class="scene faction faction-1">
+      <div class="faction-grid">
+        <div class="sigil sigil-coalition" aria-hidden="true">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="50,8 58,40 92,40 64,60 74,92 50,72 26,92 36,60 8,40 42,40" fill="none" stroke="currentColor" stroke-width="3"/>
+            <circle cx="50" cy="50" r="3" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="faction-text">
+          <p class="eyebrow">FACTION 01 / 04</p>
+          <h2 class="faction-name">COALITION</h2>
+          <p class="faction-tag">Overwatch. Airpower. Patience.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene faction faction-2">
+      <div class="faction-grid">
+        <div class="sigil sigil-bloc" aria-hidden="true">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="15" y="15" width="70" height="70" fill="none" stroke="currentColor" stroke-width="3"/>
+            <line x1="15" y1="15" x2="85" y2="85" stroke="currentColor" stroke-width="3"/>
+            <line x1="85" y1="15" x2="15" y2="85" stroke="currentColor" stroke-width="3"/>
+            <circle cx="50" cy="50" r="12" fill="none" stroke="currentColor" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="faction-text">
+          <p class="eyebrow">FACTION 02 / 04</p>
+          <h2 class="faction-name">BLOC</h2>
+          <p class="faction-tag">Mass. Armor. Grind.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene faction faction-3">
+      <div class="faction-grid">
+        <div class="sigil sigil-cartel" aria-hidden="true">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20,80 L50,20 L80,80 L50,65 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+            <path d="M35,70 L65,70" stroke="currentColor" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="faction-text">
+          <p class="eyebrow">FACTION 03 / 04</p>
+          <h2 class="faction-name">CARTEL</h2>
+          <p class="faction-tag">Ambush. Hide. Vanish.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene faction faction-4">
+      <div class="faction-grid">
+        <div class="sigil sigil-contractors" aria-hidden="true">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="3"/>
+            <text x="50" y="65" text-anchor="middle" font-family="Bebas Neue" font-size="40" fill="currentColor">$</text>
+          </svg>
+        </div>
+        <div class="faction-text">
+          <p class="eyebrow">FACTION 04 / 04</p>
+          <h2 class="faction-name">CONTRACTORS</h2>
+          <p class="faction-tag">Buy. Sell. Win.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scene 4A-D: heroes (rapid cuts) -->
+    <section class="scene hero hero-1">
+      <div class="dossier">
+        <div class="dossier-header">DOSSIER // RECON</div>
+        <div class="dossier-body">
+          <div class="portrait portrait-viper" aria-hidden="true">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="40" r="15" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M30,85 Q50,55 70,85" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="50" cy="40" r="3" fill="currentColor"/>
+              <line x1="20" y1="40" x2="80" y2="40" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+              <line x1="50" y1="10" x2="50" y2="70" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+            </svg>
+          </div>
+          <div class="dossier-text">
+            <p class="codename">VIPER</p>
+            <p class="role">RECON SNIPER</p>
+            <p class="abilities">+ MARK TARGET<br>+ GHOSTWALK<br>+ PRECISION VOLLEY</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene hero hero-2">
+      <div class="dossier">
+        <div class="dossier-header">DOSSIER // COMBAT ENGINEER</div>
+        <div class="dossier-body">
+          <div class="portrait portrait-wrench" aria-hidden="true">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="30" y="25" width="40" height="50" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="50" cy="45" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M40,60 L60,60 M40,68 L60,68" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="dossier-text">
+            <p class="codename">WRENCH</p>
+            <p class="role">COMBAT ENGINEER</p>
+            <p class="abilities">+ DEPLOY CLAYMORE<br>+ FIELD REPAIR<br>+ BUNKER DROP</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene hero hero-3">
+      <div class="dossier">
+        <div class="dossier-header">DOSSIER // DRONE CMD</div>
+        <div class="dossier-body">
+          <div class="portrait portrait-ghost" aria-hidden="true">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="50,20 80,50 50,80 20,50" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="50" cy="50" r="5" fill="currentColor"/>
+              <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+              <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+            </svg>
+          </div>
+          <div class="dossier-text">
+            <p class="codename">GHOST</p>
+            <p class="role">DRONE OPERATOR</p>
+            <p class="abilities">+ REVEAL SECTOR<br>+ HACK UNIT<br>+ SWARM STRIKE</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene hero hero-4">
+      <div class="dossier">
+        <div class="dossier-header">DOSSIER // POLITICAL OFCR</div>
+        <div class="dossier-body">
+          <div class="portrait portrait-preacher" aria-hidden="true">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="35" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M35,80 L50,50 L65,80 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+              <line x1="25" y1="85" x2="75" y2="85" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="dossier-text">
+            <p class="codename">PREACHER</p>
+            <p class="role">POLITICAL OFFICER</p>
+            <p class="abilities">+ RALLY TROOPS<br>+ FORCED MARCH<br>+ LEVY MILITIA</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scene 5: text slams -->
+    <section class="scene slam slam-1"><h2 class="slam-text">BASE BUILD.</h2></section>
+    <section class="scene slam slam-2"><h2 class="slam-text">NAMED OPERATORS.</h2></section>
+    <section class="scene slam slam-3"><h2 class="slam-text">15-MINUTE MATCHES.</h2></section>
+    <section class="scene slam slam-4"><h2 class="slam-text slam-red">NO QUARTER.</h2></section>
+
+    <!-- Scene 6: tactical map view -->
+    <section class="scene map-scene">
+      <div class="map">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <!-- grid -->
+          <defs>
+            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#3a3a2a" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="300" fill="url(#grid)"/>
+
+          <!-- terrain blobs -->
+          <path d="M0,180 Q100,140 200,170 T400,160 L400,300 L0,300 Z" fill="#1a1a10" opacity="0.8"/>
+          <path d="M50,90 Q120,60 180,80 Q240,100 300,85 Q360,70 400,90 L400,0 L0,0 L0,90 Z" fill="#151510" opacity="0.6"/>
+
+          <!-- roads -->
+          <path d="M0,200 Q150,190 300,210 T400,200" fill="none" stroke="#7a8450" stroke-width="1" stroke-dasharray="3,2" opacity="0.7"/>
+          <path d="M200,0 Q210,100 180,200 Q150,280 200,300" fill="none" stroke="#7a8450" stroke-width="1" stroke-dasharray="3,2" opacity="0.7"/>
+
+          <!-- friendly units (blue) -->
+          <g class="unit unit-blue" transform="translate(80,220)">
+            <rect x="-6" y="-6" width="12" height="12" fill="none" stroke="#4a9eff" stroke-width="1.5"/>
+            <text x="0" y="3" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#4a9eff">1</text>
+          </g>
+          <g class="unit unit-blue" transform="translate(110,200)">
+            <rect x="-6" y="-6" width="12" height="12" fill="none" stroke="#4a9eff" stroke-width="1.5"/>
+            <text x="0" y="3" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#4a9eff">2</text>
+          </g>
+          <g class="unit unit-blue" transform="translate(95,240)">
+            <rect x="-6" y="-6" width="12" height="12" fill="none" stroke="#4a9eff" stroke-width="1.5"/>
+            <text x="0" y="3" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#4a9eff">3</text>
+          </g>
+
+          <!-- enemy units (red) -->
+          <g class="unit unit-red" transform="translate(310,110)">
+            <polygon points="0,-7 7,7 -7,7" fill="none" stroke="#ff4a4a" stroke-width="1.5"/>
+          </g>
+          <g class="unit unit-red" transform="translate(340,140)">
+            <polygon points="0,-7 7,7 -7,7" fill="none" stroke="#ff4a4a" stroke-width="1.5"/>
+          </g>
+
+          <!-- objective marker -->
+          <g transform="translate(220,150)">
+            <circle r="14" fill="none" stroke="#ff6b1a" stroke-width="1.5"/>
+            <circle r="14" fill="none" stroke="#ff6b1a" stroke-width="1.5" class="pulse-ring"/>
+            <circle r="3" fill="#ff6b1a"/>
+            <text x="0" y="-22" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#ff6b1a">OBJ / A</text>
+          </g>
+
+          <!-- explosion flash -->
+          <g transform="translate(250,175)" class="explosion">
+            <circle r="30" fill="#ff6b1a" opacity="0.6"/>
+            <circle r="20" fill="#fff1dc" opacity="0.8"/>
+          </g>
+        </svg>
+      </div>
+      <div class="map-overlay">
+        <p class="map-label">SECTOR 7 // MATCH IN PROGRESS</p>
+      </div>
+    </section>
+
+    <!-- Scene 7: logo + CTA -->
+    <section class="scene logo-scene">
+      <div class="center">
+        <div class="brand-mark">
+          <div class="brand-bar"></div>
+          <h1 class="logo">FIELD COMMAND</h1>
+          <div class="brand-bar"></div>
+        </div>
+        <p class="tagline">Warcraft 3 for the modern battlefield.</p>
+        <div class="cta-row">
+          <a href="#wishlist" class="btn btn-primary">WISHLIST ON STEAM</a>
+          <button class="btn btn-ghost" id="replay">REPLAY TRAILER</button>
+        </div>
+        <p class="small-note">Base build. Named operators. 15-minute matches.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Below-the-fold landing page -->
+  <section class="fold" id="wishlist">
+    <div class="container">
+
+      <header class="page-header">
+        <p class="eyebrow">AN INDIE RTS IN DEVELOPMENT</p>
+        <h2 class="page-title">Small-unit modern combat. 15 minutes. Your call.</h2>
+        <p class="lede">
+          Four asymmetric factions. Named operators with XP and gear. Base building,
+          hero micro, and the kind of explosive teamfights RTS forgot how to make.
+          Think Warcraft 3 took a deployment to the modern world.
+        </p>
+      </header>
+
+      <form class="wishlist-form" id="wishlist-form">
+        <label for="email" class="sr-only">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@battalion.mil" required />
+        <button type="submit" class="btn btn-primary">GET DEV UPDATES</button>
+      </form>
+      <p class="form-note" id="form-note">We'll email when the Steam page goes live. That's it.</p>
+
+      <div class="section-divider"></div>
+
+      <div class="grid-2">
+        <div class="info-block">
+          <h3>FOUR FACTIONS. FOUR GAMES.</h3>
+          <ul>
+            <li><strong>Coalition</strong> — slow to deploy, devastating when set. Drones, air strikes, JDAMs.</li>
+            <li><strong>Bloc</strong> — mass and artillery. Trade quality for volume. Artillery from offscreen.</li>
+            <li><strong>Cartel</strong> — hide and swarm. Technicals, IEDs, mobile spawns. No traditional base.</li>
+            <li><strong>Contractors</strong> — no tech tree. Buy any unit from any faction. Toolbox faction.</li>
+          </ul>
+        </div>
+
+        <div class="info-block">
+          <h3>NAMED OPERATORS.</h3>
+          <ul>
+            <li><strong>Viper</strong> — recon sniper. Marks targets, precision volleys.</li>
+            <li><strong>Wrench</strong> — combat engineer. Claymores, repairs, dropped bunkers.</li>
+            <li><strong>Ghost</strong> — drone operator. Reveals fog, hacks units, suicide swarms.</li>
+            <li><strong>Preacher</strong> — political officer. Rallies morale, levies militia.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="info-block">
+        <h3>WHY THIS EXISTS.</h3>
+        <p>
+          Warcraft 3 launched in 2002. Twenty-three years of attempts to build a
+          successor, and every one focused on fantasy or sci-fi. No one has given
+          the WC3 multiplayer crowd a modern military game with the same small-unit
+          feel, hero micro, and asymmetric factions. That's the gap.
+        </p>
+        <p>
+          Field Command isn't trying to be realistic. It's trying to be fun. Arcade HP.
+          Voice-line personality. 15-minute matches. Chaos.
+        </p>
+      </div>
+
+    </div>
+
+    <footer class="site-footer">
+      <p>FIELD COMMAND // In development // © 2026</p>
+    </footer>
+  </section>
+
+  <script src="trailer.js"></script>
+</body>
+</html>
